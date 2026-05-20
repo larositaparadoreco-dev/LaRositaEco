@@ -831,9 +831,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Re-render
             await renderReels();
-
-            // Re-run the navigation/indicator updater
-            handleScroll();
           } catch (err) {
             showToast('Error al eliminar el reel', 'error');
             console.error(err);
@@ -886,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isFar = Math.abs(idx - activeIndex) > 2;
 
       if (isNear) {
-        if (!video.src) {
+        if (!video.src || video.src === window.location.href) {
           video.src = video.dataset.src;
           video.load();
         }
@@ -896,9 +893,11 @@ document.addEventListener('DOMContentLoaded', () => {
           video.preload = 'metadata'; // Preload adjacent lightly
         }
       } else if (isFar) {
-        if (video.src) {
+        if (video.src && video.src !== window.location.href) {
           video.pause();
-          video.removeAttribute('src'); // Unload video to save memory
+          video.removeAttribute('src'); 
+          video.src = ''; // Aggressive unload
+          video.preload = 'none';
           video.load(); // Force memory release
           video.classList.remove('loaded');
         }
@@ -963,34 +962,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const slides = viewport.querySelectorAll('.reel-slide');
     slides.forEach(slide => reelsObserver.observe(slide));
   };
-
-  // Fallback Scroll Detection to update indicators / state if needed
-  const handleScroll = () => {
-    const slides = viewport.querySelectorAll('.reel-slide');
-    if (slides.length === 0) return;
-
-    // Find which slide is closest to the top of viewport
-    let closestSlide = null;
-    let minDiff = Infinity;
-
-    slides.forEach(slide => {
-      const rect = slide.getBoundingClientRect();
-      const viewportRect = viewport.getBoundingClientRect();
-      const diff = Math.abs(rect.top - viewportRect.top);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closestSlide = slide;
-      }
-    });
-
-    if (closestSlide) {
-      const idx = parseInt(closestSlide.dataset.index);
-      activeSlideIndex = idx;
-      indicator.textContent = `${activeSlideIndex + 1} / ${reelsList.length}`;
-    }
-  };
-
-  viewport.addEventListener('scroll', handleScroll, { passive: true });
 
   // 9. ADMIN PANEL & VIDEO UPLOAD
   const updateAdminList = (customReels) => {
