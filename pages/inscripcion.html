@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Inscripción - Eco Vacaciones KidZ" />
+  <meta name="keywords" content="inscripción, eco-vacaciones, niños, naturaleza, educación ambiental, campamentos" />
+  <meta name="author" content="Eco-Vacaciones KidZ" />
+  <title>Inscripción | LaRosita-ECO</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a href="../index.html" class="brand">
+        <img src="../assets/img/logo.png" alt="Logo LaRosita-ECO" class="brand-logo" />
+        <div>
+          <h1><i class="fas fa-leaf"></i> LaRosita-ECO</h1>
+          <p>Aprender jugando con la naturaleza</p>
+        </div>
+      </a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <div class="nav-mobile-logo">
+          <div class="brand">
+            <img src="../assets/img/logo.png" alt="Logo LaRosita-ECO" class="brand-logo" />
+            <div>
+              <h1><i class="fas fa-leaf"></i> LaRosita-ECO</h1>
+              <p>Aprender jugando con la naturaleza</p>
+            </div>
+          </div>
+        </div>
+        <a href="../index.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="programas.html">Programas</a>
+        <a href="actividades.html">Actividades</a>
+        <a href="inscripcion.html">Inscripción</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="memorias.html">Memorias</a>
+      </nav>
+      <a href="inscripcion.html" class="btn btn-primary">Inscribirse</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="inscription-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Formulario de Inscripción</h2>
+          <p>Completa este formulario para registrar a tu hijo/a en nuestras actividades ecológicas. Todos los campos
+            marcados con * son obligatorios.</p>
+        </div>
+
+        <div class="inscription-layout">
+          <form id="inscriptionForm" class="registration-form" novalidate>
+
+            <!-- DATOS DEL NIÑO -->
+            <fieldset>
+              <legend><i class="fas fa-user-circle"></i> Datos del Niño/Niña</legend>
+
+              <label for="nombre_nino">
+                <span>Nombre Completo *</span>
+                <input type="text" id="nombre_nino" name="nombre_nino" required placeholder="Ej: Juan Pérez">
+              </label>
+
+              <label for="fecha_nacimiento">
+                <span>Fecha de Nacimiento *</span>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+              </label>
+
+              <label for="genero">
+                <span>Género *</span>
+                <select id="genero" name="genero" required>
+                  <option value="">-- Selecciona una opción --</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
+                </select>
+              </label>
+
+              <label for="direccion">
+                <span>Dirección</span>
+                <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle Principal 123">
+              </label>
+
+              <label for="telefono_emergencia">
+                <span>Teléfono de Emergencia *</span>
+                <input type="tel" id="telefono_emergencia" name="telefono_emergencia" required
+                  placeholder="Ej: +52 1234567890">
+              </label>
+
+              <label for="correo">
+                <span>Correo Electrónico</span>
+                <input type="email" id="correo" name="correo" placeholder="Ej: correo@ejemplo.com">
+              </label>
+            </fieldset>
+
+            <!-- PADRE / TUTOR -->
+            <fieldset>
+              <legend><i class="fas fa-users"></i> Datos del Padre/Madre o Tutor</legend>
+
+              <label for="nombre_tutor">
+                <span>Nombre Completo *</span>
+                <input type="text" id="nombre_tutor" name="nombre_tutor" required placeholder="Ej: María García">
+              </label>
+
+              <label for="parentesco">
+                <span>Parentesco</span>
+                <input type="text" id="parentesco" name="parentesco" placeholder="Ej: Madre, Padre, Abuelo/a">
+              </label>
+
+              <label for="telefono_tutor">
+                <span>Teléfono/Celular *</span>
+                <input type="tel" id="telefono_tutor" name="telefono_tutor" required placeholder="Ej: +52 1234567890">
+              </label>
+
+              <label for="correo_tutor">
+                <span>Correo Electrónico</span>
+                <input type="email" id="correo_tutor" name="correo_tutor" placeholder="Ej: correo@ejemplo.com">
+              </label>
+            </fieldset>
+
+            <!-- INFORMACIÓN MÉDICA -->
+            <fieldset>
+              <legend><i class="fas fa-heart"></i> Información Médica</legend>
+
+              <label for="alergias">
+                <span>Alergias</span>
+                <input type="text" id="alergias" name="alergias" placeholder="Ej: Cacahuate, Lácteos, etc.">
+              </label>
+
+              <label for="medicamentos">
+                <span>Medicamentos</span>
+                <input type="text" id="medicamentos" name="medicamentos" placeholder="Ej: Asma, Diabetes, etc.">
+              </label>
+
+              <label for="restricciones">
+                <span>Restricciones Físicas</span>
+                <input type="text" id="restricciones" name="restricciones"
+                  placeholder="Ej: Lesiones, limitaciones, etc.">
+              </label>
+
+              <label for="observaciones" class="full-width">
+                <span>Otras Observaciones Importantes</span>
+                <textarea id="observaciones" name="observaciones" rows="4"
+                  placeholder="Cuéntanos cualquier información adicional importante que deba conocer nuestro equipo..."></textarea>
+              </label>
+            </fieldset>
+
+            <!-- ACTIVIDADES -->
+            <fieldset class="full-width">
+              <legend><i class="fas fa-star"></i> Actividades de Interés</legend>
+              <p style="color: var(--color-text-muted); font-size: 0.9rem; margin: 0 0 1rem;">Selecciona las actividades
+                que más le interesan a tu hijo/a:</p>
+
+              <div class="checkbox-grid">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="actividades" value="Musica">
+                  <span><i class="fas fa-music"></i> Música</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="actividades" value="Manualidades">
+                  <span><i class="fas fa-palette"></i> Manualidades</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="actividades" value="Recreacion">
+                  <span><i class="fas fa-futbol"></i> Recreación</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="actividades" value="Danza">
+                  <span><i class="fas fa-person-hiking"></i> Danza</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="actividades" value="Teatro">
+                  <span><i class="fas fa-masks-theater"></i> Teatro</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="actividades" value="Excursiones">
+                  <span><i class="fas fa-tree"></i> Excursiones</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- AUTORIZACIONES -->
+            <fieldset class="full-width">
+              <legend><i class="fas fa-file-contract"></i> Autorizaciones y Aceptaciones</legend>
+              <p style="color: var(--color-text-muted); font-size: 0.9rem; margin: 0 0 1rem;">Por favor, confirma lo
+                siguiente:</p>
+
+              <label class="checkbox-label">
+                <input type="checkbox" name="autorizacion_participacion" required>
+                <span>Autorizo la participación de mi hijo/a en las actividades según los <a href="terminos.html" target="_blank" style="text-decoration: underline; color: var(--color-primary);">Términos y Condiciones</a> *</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="autorizacion_imagenes">
+                <span>Autorizo el uso de fotos y videos según la <a href="privacidad.html#fotos" target="_blank" style="text-decoration: underline; color: var(--color-primary);">Política de Privacidad</a></span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" name="aceptacion_politicas" required>
+                <span>He leído y acepto la <a href="privacidad.html" target="_blank" style="text-decoration: underline; color: var(--color-primary);">Política de Tratamiento de Datos (Habeas Data)</a> *</span>
+              </label>
+
+              <div class="privacy-notice" style="margin-top: 1.5rem; padding: 1rem; background: rgba(139, 194, 79, 0.1); border-radius: 12px; font-size: 0.85rem; color: var(--color-text-muted);">
+                <p><i class="fas fa-info-circle"></i> <strong>Aviso de Privacidad:</strong> Los datos recolectados serán tratados por el Colectivo de Artistas LaRositaEco exclusivamente para la gestión del vacacional. No compartimos información con terceros sin su consentimiento. Puede ejercer sus derechos de acceso, rectificación o supresión escribiendo a larositaparadoreco@gmail.com.</p>
+              </div>
+            </fieldset>
+
+            <!-- FIRMA Y FECHA -->
+            <fieldset>
+              <legend><i class="fas fa-pen-fancy"></i> Confirmación Final</legend>
+
+              <label for="firma">
+                <span>Representante del menor</span>
+                <input type="text" id="firma" name="firma" placeholder="Nombre Completo">
+              </label>
+
+              <label for="fecha">
+                <span>Fecha de Registro *</span>
+                <input type="date" id="fecha" name="fecha" required>
+              </label>
+            </fieldset>
+
+            <!-- BOTÓN DE ENVÍO -->
+            <div class="form-actions full-width">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> Enviar Inscripción
+              </button>
+              <button type="reset" class="btn btn-secondary">
+                <i class="fas fa-redo"></i> Limpiar Formulario
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-section">
+        <h4><i class="fas fa-leaf"></i> LaRosita-ECO</h4>
+        <p>Aprender jugando con la naturaleza. Experiencias ecológicas para niños(a).</p>
+      </div>
+      <div class="footer-section">
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html">Programas</a></li>
+          <li><a href="actividades.html">Actividades</a></li>
+          <li><a href="inscripcion.html">Inscripción</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="memorias.html">Memorias</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contacto</h4>
+        <p><i class="fas fa-phone"></i> +57 310 525 7479</p>
+        <p><i class="fas fa-phone"></i> +57 310 602 8228</p>
+        <p><i class="fas fa-envelope"></i> larositaparadoreco@gmail.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> FINCA LA ROSITA - Km 1 via Sabana de pedro. Corozal-Sucre</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos</h4>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/larositaeco?igsh=MWFsaDRkdW5mb3U4cg==" aria-label="Instagram"><i
+              class="fab fa-instagram"></i></a>
+
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 LaRosita-ECO. Todos los derechos reservados. | <a href="privacidad.html" style="text-decoration: underline;">Privacidad</a> | <a href="terminos.html" style="text-decoration: underline;">Términos</a> | <a href="cookies.html" style="text-decoration: underline;">Cookies</a> | <a href="licencia.html" style="text-decoration: underline;">Licencia</a></p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+  <script src="../assets/js/script.js" defer></script>
+  <script src="../assets/js/reels.js" defer></script>
+
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Volver arriba"><i class="fas fa-chevron-up"></i></button>
+
+  <a href="https://wa.me/573105257479?text=Hola,%20me%20gustaría%20información%20sobre%20LaRosita-ECO"
+    class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- SWEETALERT2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    document.getElementById("inscriptionForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+
+      // Validación básica
+      if (!form.nombre_nino.value || !form.nombre_tutor.value || !form.telefono_tutor.value) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Campos incompletos',
+          text: 'Por favor completa los campos obligatorios antes de continuar.',
+          confirmButtonColor: '#ffc107'
+        });
+        return;
+      }
+
+      // Actividades seleccionadas
+      const actividades = Array.from(form.querySelectorAll('input[name="actividades"]:checked'))
+        .map(el => el.value)
+        .join(", ");
+
+      const data = {
+        nombre_nino: form.nombre_nino.value,
+        fecha_nacimiento: form.fecha_nacimiento.value,
+        genero: form.genero.value,
+        direccion: form.direccion.value,
+        telefono_emergencia: form.telefono_emergencia.value,
+        correo: form.correo.value,
+
+        nombre_tutor: form.nombre_tutor.value,
+        parentesco: form.parentesco.value,
+        telefono_tutor: form.telefono_tutor.value,
+        correo_tutor: form.correo_tutor.value,
+
+        alergias: form.alergias.value,
+        medicamentos: form.medicamentos.value,
+        restricciones: form.restricciones.value,
+        observaciones: form.observaciones.value,
+
+        actividades: actividades,
+
+        autorizacion_participacion: form.autorizacion_participacion.checked ? "Sí" : "No",
+        autorizacion_imagenes: form.autorizacion_imagenes.checked ? "Sí" : "No",
+        aceptacion_politicas: form.aceptacion_politicas.checked ? "Sí" : "No",
+
+        firma: form.firma.value,
+        fecha: form.fecha.value
+      };
+
+      // LOADING
+      Swal.fire({
+        title: 'Enviando inscripción...',
+        text: 'Por favor espera un momento',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      fetch("https://script.google.com/macros/s/AKfycbxP53PwceCAsLUteza5oPafRDB353BJQEzwUrcgohYkOOoBEvbAvWwJKxJ7ppR8QkEi/exec", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+        .then(res => res.json())
+        .then(response => {
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Inscripción registrada',
+            text: 'La información ha sido enviada correctamente. Nos estaremos comunicando contigo en breve para confirmar la participación.',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#28a745'
+          });
+
+          form.reset();
+        })
+        .catch(error => {
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Error en el envío',
+            text: 'Ocurrió un inconveniente al registrar la inscripción. Por favor, inténtalo nuevamente o verifica tu conexión.',
+            confirmButtonText: 'Entendido',
+            confirmButtonColor: '#dc3545'
+          });
+
+          console.error(error);
+        });
+    });
+  </script>
+</body>
+
+</html>
