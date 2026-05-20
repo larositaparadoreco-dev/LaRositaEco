@@ -16,23 +16,90 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Supabase Configuration (Set credentials to sync globally)
-  const SUPABASE_URL = 'https://larosicaeco.supabase.co'; // Escribe aquí la URL de tu proyecto de Supabase
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxhcm9zaWNhZWNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4MTU3MzEsImV4cCI6MjA4MDM5MTczMX0.h_G8wN8w4jM15o0oJ0H5uX0W9R0M6x4S8uX0W9R0M6x4S8uX0W9R0M6w'; // Escribe aquí la clave Anon de Supabase
+  const SUPABASE_URL = 'https://taklcpjdemzyyiiiiuqs.supabase.co'; // Escribe aquí la URL de tu proyecto de Supabase
+  const SUPABASE_ANON_KEY = 'sb_publishable_l8Ks_okKyNvc0OhcQPB1kg_MHFGxXFt'; // Escribe aquí la clave Anon de Supabase
   let supabase = null;
   let useSupabase = false;
+  let supabaseError = null;
+  let isCheckingSupabase = false;
 
-  function initSupabase() {
+  async function initSupabase() {
     if (SUPABASE_URL && SUPABASE_ANON_KEY && typeof window.supabase !== 'undefined') {
       try {
+        isCheckingSupabase = true;
+        updateConnectionStatusUI();
+        
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Realizar una consulta de prueba rápida para validar la conexión y verificar si está activo
+        const { data, error } = await supabase
+          .from('reels')
+          .select('id')
+          .limit(1);
+
+        if (error) {
+          throw error;
+        }
+
         useSupabase = true;
-        console.log('LaRositaReels: Supabase cloud sync active.');
+        supabaseError = null;
+        console.log('LaRositaReels: Supabase cloud sync active and verified.');
       } catch (err) {
-        console.error('Failed to init Supabase:', err);
+        console.error('Failed to connect to Supabase:', err);
         useSupabase = false;
+        // Capturar error detallado (por ejemplo, error de red)
+        supabaseError = err.message || String(err);
+      } finally {
+        isCheckingSupabase = false;
+        updateConnectionStatusUI();
       }
+    } else {
+      useSupabase = false;
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        supabaseError = 'Credenciales de Supabase no configuradas';
+      } else {
+        supabaseError = 'Biblioteca client de Supabase no cargada';
+      }
+      updateConnectionStatusUI();
     }
   }
+
+  const updateConnectionStatusUI = () => {
+    const statusBar = document.getElementById('reelsStatusBar');
+    const warningMsg = document.getElementById('reelsLocalWarning');
+    if (!statusBar) return;
+
+    if (isCheckingSupabase) {
+      statusBar.className = 'reels-status-bar status-checking';
+      statusBar.innerHTML = `
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+        <span>Verificando conexión con la nube...</span>
+      `;
+      if (warningMsg) warningMsg.style.display = 'none';
+    } else if (useSupabase && supabase) {
+      statusBar.className = 'reels-status-bar status-connected';
+      statusBar.innerHTML = `
+        <i class="fa-solid fa-circle-check"></i>
+        <span>Sincronización activa (Nube)</span>
+      `;
+      if (warningMsg) warningMsg.style.display = 'none';
+    } else {
+      statusBar.className = 'reels-status-bar status-disconnected';
+      let errorDetail = 'Modo Local Activo';
+      if (supabaseError) {
+        if (supabaseError.includes('Failed to fetch') || supabaseError.includes('NetworkError') || supabaseError.includes('TypeError')) {
+          errorDetail += ' (El proyecto de Supabase podría estar pausado)';
+        } else {
+          errorDetail += ` (${supabaseError})`;
+        }
+      }
+      statusBar.innerHTML = `
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>${errorDetail}</span>
+      `;
+      if (warningMsg) warningMsg.style.display = 'block';
+    }
+  };
 
   // 2. STATE MANAGEMENT
   const ADMIN_PASSWORD = 'RositaEco2026';
@@ -330,6 +397,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <h2><i class="fa-solid fa-photo-film"></i> Administrar</h2>
             <button class="reels-admin-close" id="reelsAdminCloseBtn"><i class="fa-solid fa-xmark"></i></button>
           </div>
+
+          <!-- Barra de Estado de Conexión -->
+          <div class="reels-status-bar" id="reelsStatusBar">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <span>Verificando conexión con la nube...</span>
+          </div>
           
           <form class="reels-form" id="reelsUploadForm" novalidate>
             <div class="reels-form-group">
@@ -350,6 +423,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="reels-form-group">
               <label for="reelDescInput">Descripción</label>
               <textarea id="reelDescInput" class="reels-textarea" placeholder="Describe brevemente el momento ecológico..." required maxlength="120"></textarea>
+            </div>
+
+            <!-- Advertencia Modo Local -->
+            <div class="reels-local-warning" id="reelsLocalWarning" style="display: none; background: rgba(255, 152, 0, 0.1); border: 1px solid rgba(255, 152, 0, 0.25); padding: 10px; border-radius: 8px; font-size: 12px; color: #ffb74d; margin-bottom: 5px; text-align: left; line-height: 1.4;">
+              <i class="fa-solid fa-triangle-exclamation" style="margin-right: 5px; color: #ffa726;"></i>
+              <strong>Modo Local Activo:</strong> El video solo se guardará en este navegador. Activa tu proyecto en Supabase para que sea visible para todos.
             </div>
 
             <!-- Loader / Progress -->
@@ -913,7 +992,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Toggle admin panel drawer
-  const openAdminPanel = () => adminPanel.classList.add('open');
+  const openAdminPanel = () => {
+    adminPanel.classList.add('open');
+    updateConnectionStatusUI();
+  };
   const closeAdminPanel = () => {
     adminPanel.classList.remove('open');
     uploadForm.reset();
@@ -1077,7 +1159,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (err) {
       console.error(err);
-      showToast('Error al guardar el video en la base de datos.', 'error');
+      const errMsg = err.message || String(err);
+      let errorText = 'Error al guardar el video.';
+      if (errMsg.includes('Failed to fetch') || errMsg.includes('NetworkError')) {
+        errorText = 'Error de red: No se pudo conectar con Supabase. ¿El proyecto está pausado?';
+      } else {
+        errorText = `Error: ${errMsg}`;
+      }
+      showToast(errorText, 'error');
       uploadProgress.classList.remove('active');
       submitBtn.disabled = false;
     }
@@ -1198,11 +1287,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
     script.async = true;
-    script.onload = () => {
-      initSupabase();
-      if (useSupabase) {
-        renderReels();
-      }
+    script.onload = async () => {
+      await initSupabase();
+      renderReels();
     };
     document.head.appendChild(script);
   }
