@@ -10,6 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="assets/img/image%204.jpeg" as="image" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Permanent+Marker&family=Nunito:wght@300;400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
@@ -345,9 +346,7 @@
         <div class="reels-grid-preview">
           <!-- Card 1 -->
           <div class="reel-preview-card" onclick="openReelsModal('preload-1')">
-            <video muted loop playsinline autoplay>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-tree-branches-and-leaves-bending-in-the-wind-41235-large.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-video" muted loop playsinline preload="none" data-src="https://assets.mixkit.co/videos/preview/mixkit-tree-branches-and-leaves-bending-in-the-wind-41235-large.mp4"></video>
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; text-align: left;">
               <span style="background: #8bc24f; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; align-self: flex-start; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">🌿 Naturaleza</span>
               <h4 style="color: #fff; font-size: 1.1rem; margin: 0 0 5px 0; font-family: 'Outfit', sans-serif;">Conexión Natural</h4>
@@ -360,9 +359,7 @@
 
           <!-- Card 2 -->
           <div class="reel-preview-card" onclick="openReelsModal('preload-2')">
-            <video muted loop playsinline autoplay>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-father-and-his-little-daughter-walking-in-nature-39744-large.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-video" muted loop playsinline preload="none" data-src="https://assets.mixkit.co/videos/preview/mixkit-father-and-his-little-daughter-walking-in-nature-39744-large.mp4"></video>
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; text-align: left;">
               <span style="background: #8bc24f; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; align-self: flex-start; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">🥾 Exploración</span>
               <h4 style="color: #fff; font-size: 1.1rem; margin: 0 0 5px 0; font-family: 'Outfit', sans-serif;">Exploración Ecológica</h4>
@@ -375,9 +372,7 @@
 
           <!-- Card 3 -->
           <div class="reel-preview-card" onclick="openReelsModal('preload-3')">
-            <video muted loop playsinline autoplay>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-little-girl-playing-with-autumn-leaves-in-a-park-39737-large.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-video" muted loop playsinline preload="none" data-src="https://assets.mixkit.co/videos/preview/mixkit-little-girl-playing-with-autumn-leaves-in-a-park-39737-large.mp4"></video>
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; text-align: left;">
               <span style="background: #8bc24f; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; align-self: flex-start; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">🍂 Diversión</span>
               <h4 style="color: #fff; font-size: 1.1rem; margin: 0 0 5px 0; font-family: 'Outfit', sans-serif;">Juego y Recreación</h4>
@@ -390,9 +385,7 @@
 
           <!-- Card 4 -->
           <div class="reel-preview-card" onclick="openReelsModal('preload-4')">
-            <video muted loop playsinline autoplay>
-              <source src="https://assets.mixkit.co/videos/preview/mixkit-green-leaves-on-a-branch-in-close-up-41584-large.mp4" type="video/mp4">
-            </video>
+            <video class="lazy-video" muted loop playsinline preload="none" data-src="https://assets.mixkit.co/videos/preview/mixkit-green-leaves-on-a-branch-in-close-up-41584-large.mp4"></video>
             <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; text-align: left;">
               <span style="background: #8bc24f; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; align-self: flex-start; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">🌱 Huerto</span>
               <h4 style="color: #fff; font-size: 1.1rem; margin: 0 0 5px 0; font-family: 'Outfit', sans-serif;">Taller Ecológico</h4>

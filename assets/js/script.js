@@ -168,13 +168,33 @@ document.addEventListener('DOMContentLoaded', () => {
     img.setAttribute('loading', 'lazy');
   });
 
+  /* ---------- Lazy-loading videos ---------- */
+  const lazyVideos = document.querySelectorAll('video.lazy-video');
+  if ('IntersectionObserver' in window && lazyVideos.length > 0) {
+    const videoObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          video.src = video.dataset.src;
+          video.load();
+          video.addEventListener('loadeddata', () => {
+            video.classList.add('loaded');
+            video.play().catch(() => {});
+          }, { once: true });
+          observer.unobserve(video);
+        }
+      });
+    }, { rootMargin: '0px 0px 200px 0px' });
+    lazyVideos.forEach(v => videoObserver.observe(v));
+  }
+
   /* ---------- Animated Kids Overlay ---------- */
   const kidsContainer = document.createElement('div');
   kidsContainer.className = 'animated-kids-container';
   kidsContainer.innerHTML = `
-    <i class="fas fa-child kid-runner kid-1"></i>
-    <i class="fas fa-person-running kid-runner kid-2"></i>
-    <i class="fas fa-child-reaching kid-runner kid-3"></i>
+    <div class="kid-runner kid-1"><i class="fas fa-child"></i></div>
+    <div class="kid-runner kid-2"><i class="fas fa-person-running"></i></div>
+    <div class="kid-runner kid-3"><i class="fas fa-child-reaching"></i></div>
   `;
   document.body.appendChild(kidsContainer);
 

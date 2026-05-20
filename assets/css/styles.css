@@ -13,7 +13,11 @@
 }
 
 * { box-sizing: border-box; }
-html { overflow-x: hidden; scroll-behavior: smooth; }
+html { overflow-x: hidden; scroll-behavior: smooth; overscroll-behavior-y: none; }
+.info-panel, .gallery-section, .section-dark, .testimonials {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
 body { margin: 0; font-family: 'Nunito', 'Rubik', sans-serif; background: radial-gradient(circle at top left, rgba(223,248,218,0.9) 0%, rgba(242,251,238,0.98) 35%, rgba(255,252,242,1) 100%); color: var(--color-text); overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -2436,36 +2440,50 @@ img { max-width: 100%; display: block; }
 .kid-runner {
   position: absolute;
   bottom: 8px;
-  left: -10%;
+  left: 0;
+  transform: translate3d(-20vw, 0, 0);
   font-size: 2.2rem;
   color: var(--color-primary);
-  animation: runAcross 15s linear infinite, bob 0.6s ease-in-out infinite;
+  animation: runAcross 15s linear infinite;
   opacity: 0.85;
   filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.15));
+  will-change: transform;
+}
+
+.kid-runner i {
+  display: block;
+  animation: bob 0.6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .kid-runner.kid-2 {
   color: var(--color-accent);
-  animation-duration: 18s, 0.5s;
-  animation-delay: 5s, 0s;
+  animation-duration: 18s;
+  animation-delay: 5s;
   font-size: 2rem;
+}
+.kid-runner.kid-2 i {
+  animation-duration: 0.5s;
 }
 
 .kid-runner.kid-3 {
   color: #f1c35e;
-  animation-duration: 22s, 0.7s;
-  animation-delay: 11s, 0s;
+  animation-duration: 22s;
+  animation-delay: 11s;
   font-size: 2.4rem;
+}
+.kid-runner.kid-3 i {
+  animation-duration: 0.7s;
 }
 
 @keyframes runAcross {
-  0% { left: -10%; }
-  100% { left: 110%; }
+  0% { transform: translate3d(-20vw, 0, 0); }
+  100% { transform: translate3d(120vw, 0, 0); }
 }
 
 @keyframes bob {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(5deg); }
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(5deg); }
 }
 
 /* ---------- Activity List Descriptions ---------- */

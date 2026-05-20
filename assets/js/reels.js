@@ -547,8 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="reel-gradient-top"></div>
         
         <!-- Video Element -->
-        <video loop playsinline webkit-playsinline preload="metadata" ${globalMuted ? 'muted' : ''}>
-          <source src="${reel.url}" type="video/mp4">
+        <video loop playsinline webkit-playsinline preload="none" data-src="${reel.url}" ${globalMuted ? 'muted' : ''}>
           Tu navegador no soporta videos.
         </video>
 
@@ -633,6 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     indicator.textContent = `1 / ${reelsList.length}`;
     updateAdminList(customReels);
+    setupAutoplayObserver();
   };
 
   // 7. SETUP EVENT LISTENERS FOR INDIVIDUAL REEL SLIDES
@@ -654,11 +654,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressContainer = slide.querySelector('.reel-progress-container');
     const progressFill = slide.querySelector('.reel-progress-fill');
 
-    // A. Loader toggling while buffering
+    // A. Loader toggling while buffering & Fade-in
     video.addEventListener('waiting', () => loader.classList.add('active'));
-    video.addEventListener('playing', () => loader.classList.remove('active'));
-    video.addEventListener('loadeddata', () => loader.classList.remove('active'));
-    video.addEventListener('seeked', () => loader.classList.remove('active'));
+    video.addEventListener('playing', () => {
+      loader.classList.remove('active');
+      video.classList.add('loaded');
+    });
+    video.addEventListener('loadeddata', () => {
+      loader.classList.remove('active');
+      video.classList.add('loaded'); // First frame is ready
+    });
+    video.addEventListener('canplay', () => {
+      loader.classList.remove('active');
+      video.classList.add('loaded');
+    });
+    video.addEventListener('timeupdate', () => {
+      if (video.currentTime > 0.1) {
+        video.classList.add('loaded');
+      }
+    });
+
+    // Fallback if video is already loaded from cache
+    if (video.readyState >= 2) {
+      loader.classList.remove('active');
+      video.classList.add('loaded');
+    }
 
     // B. Tap video to Play/Pause
     const togglePlay = () => {
@@ -856,13 +876,51 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 8. AUTOPLAY & SCROLL DETECTION VIA INTERSECTION OBSERVER
+  const updateVideoSources = (activeIndex) => {
+    const slides = viewport.querySelectorAll('.reel-slide');
+    slides.forEach((slide, idx) => {
+      const video = slide.querySelector('video');
+      if (!video) return;
+
+      const isNear = Math.abs(idx - activeIndex) <= 1; // Current, prev, next
+      const isFar = Math.abs(idx - activeIndex) > 2;
+
+      if (isNear) {
+        if (!video.src) {
+          video.src = video.dataset.src;
+          video.load();
+        }
+        if (idx === activeIndex) {
+          video.preload = 'auto';
+        } else {
+          video.preload = 'metadata'; // Preload adjacent lightly
+        }
+      } else if (isFar) {
+        if (video.src) {
+          video.pause();
+          video.removeAttribute('src'); // Unload video to save memory
+          video.load(); // Force memory release
+          video.classList.remove('loaded');
+        }
+      }
+    });
+  };
+
+  let reelsObserver = null;
+
   const setupAutoplayObserver = () => {
+    if (reelsObserver) {
+      reelsObserver.disconnect();
+    }
+
     const observerOptions = {
       root: viewport,
-      threshold: 0.6 // Reel must be at least 60% in view to trigger play
+      threshold: 0.55 // Trigger slightly earlier
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    let scrollTimeout;
+
+    reelsObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const slide = entry.target;
         const video = slide.querySelector('video');
@@ -873,30 +931,37 @@ document.addEventListener('DOMContentLoaded', () => {
         if (entry.isIntersecting) {
           activeSlideIndex = idx;
           activeVideo = video;
-
-          // Update Indicator text
           indicator.textContent = `${activeSlideIndex + 1} / ${reelsList.length}`;
 
-          // Autoplay active video
+          // Ensure source is loaded before playing
+          if (!video.src) {
+            video.src = video.dataset.src;
+            video.load();
+          }
+
           video.muted = globalMuted;
           const playPromise = video.play();
-
           if (playPromise !== undefined) {
             playPromise.catch(error => {
-              console.log("Autoplay blocked by browser. User needs to interact first:", error);
+              console.log("Autoplay blocked by browser:", error);
             });
           }
+
+          // Smart memory management on scroll
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            updateVideoSources(activeSlideIndex);
+          }, 150);
+
         } else {
-          // Pause and reset video when leaving viewport
           video.pause();
-          video.currentTime = 0;
         }
       });
     }, observerOptions);
 
     // Observe all slides
     const slides = viewport.querySelectorAll('.reel-slide');
-    slides.forEach(slide => observer.observe(slide));
+    slides.forEach(slide => reelsObserver.observe(slide));
   };
 
   // Fallback Scroll Detection to update indicators / state if needed
