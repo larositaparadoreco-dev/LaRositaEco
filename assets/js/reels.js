@@ -669,7 +669,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.classList.add('loaded');
     });
     video.addEventListener('timeupdate', () => {
-      if (video.currentTime > 0.1) {
+      if (video.currentTime > 0.1 && !video.classList.contains('loaded')) {
         video.classList.add('loaded');
       }
     });
@@ -885,12 +885,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isNear) {
         if (!video.src || video.src === window.location.href) {
           video.src = video.dataset.src;
-          video.load();
         }
         if (idx === activeIndex) {
           video.preload = 'auto';
+          // Only load the active video to save hardware decoder slots
+          if (video.readyState === 0) video.load();
         } else {
-          video.preload = 'metadata'; // Preload adjacent lightly
+          video.preload = 'none'; // Strictly prevent adjacent videos from decoding
         }
       } else if (isFar) {
         if (video.src && video.src !== window.location.href) {
