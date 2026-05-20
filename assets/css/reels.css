@@ -53,9 +53,7 @@
 .reels-modal {
   position: fixed;
   inset: 0;
-  background: rgba(5, 8, 6, 0.95);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: #050806; /* Solid color for performance */
   z-index: 99999; /* Higher than header and WhatsApp button */
   opacity: 0;
   visibility: hidden;
@@ -376,12 +374,14 @@
 
 .reel-progress-fill {
   height: 100%;
-  width: 0%;
+  width: 100%;
   background: linear-gradient(90deg, #2f8f59, #8bc24f);
   position: absolute;
   left: 0;
   top: 0;
-  transition: width 0.1s linear;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.2s linear;
 }
 
 .reel-progress-handle {

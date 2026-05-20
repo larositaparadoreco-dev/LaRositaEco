@@ -848,7 +848,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const clickX = e.clientX - rect.left;
       const percentage = Math.max(0, Math.min(1, clickX / rect.width));
       video.currentTime = percentage * video.duration;
-      progressFill.style.width = `${percentage * 100}%`;
+      progressFill.style.transform = `scaleX(${percentage})`;
     };
 
     progressContainer.addEventListener('mousedown', (e) => {
@@ -869,8 +869,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Keep progress bar filling synced with video progress
     video.addEventListener('timeupdate', () => {
       if (!isDraggingProgress && video.duration) {
-        const percentage = (video.currentTime / video.duration) * 100;
-        progressFill.style.width = `${percentage}%`;
+        const percentage = video.currentTime / video.duration;
+        progressFill.style.transform = `scaleX(${percentage})`;
       }
     });
   };
