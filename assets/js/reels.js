@@ -124,40 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isDraggingProgress = false;
 
   // Preloaded sample vertical reels (Nature & Kid Activities)
-  const preloadedReels = [
-    {
-      id: 'preload-1',
-      url: 'https://assets.mixkit.co/videos/preview/mixkit-tree-branches-and-leaves-bending-in-the-wind-41235-large.mp4',
-      title: 'Conexión Natural 🌿',
-      desc: 'En LaRosita-ECO conectamos a los niños con la naturaleza a través del juego libre.',
-      likes: 124,
-      isPreloaded: true
-    },
-    {
-      id: 'preload-2',
-      url: 'https://assets.mixkit.co/videos/preview/mixkit-father-and-his-little-daughter-walking-in-nature-39744-large.mp4',
-      title: 'Exploración Ecológica 🥾',
-      desc: 'Aventuras guiadas y senderismo para fortalecer valores ambientales y familiares.',
-      likes: 89,
-      isPreloaded: true
-    },
-    {
-      id: 'preload-3',
-      url: 'https://assets.mixkit.co/videos/preview/mixkit-little-girl-playing-with-autumn-leaves-in-a-park-39737-large.mp4',
-      title: 'Juego y Recreación 🍂',
-      desc: 'La felicidad de jugar al aire libre y sentir el entorno con libertad y seguridad.',
-      likes: 156,
-      isPreloaded: true
-    },
-    {
-      id: 'preload-4',
-      url: 'https://assets.mixkit.co/videos/preview/mixkit-green-leaves-on-a-branch-in-close-up-41584-large.mp4',
-      title: 'Talleres de Huerto y Compost 🌱',
-      desc: 'Aprendiendo sobre biodiversidad observando de cerca el ciclo de la vida vegetal.',
-      likes: 95,
-      isPreloaded: true
-    }
-  ];
+  const preloadedReels = [];
 
   // 3. INDEXEDDB & CLOUD DB SETUP (Unified database wrapper)
   const initDB = () => {
